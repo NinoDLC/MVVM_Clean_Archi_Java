@@ -1,5 +1,6 @@
 package fr.delcey.mvvm_clean_archi_java.data.model;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -22,6 +23,7 @@ public class Address {
         return path;
     }
 
+    @VisibleForTesting
     public void setId(int id) {
         this.id = id;
     }
