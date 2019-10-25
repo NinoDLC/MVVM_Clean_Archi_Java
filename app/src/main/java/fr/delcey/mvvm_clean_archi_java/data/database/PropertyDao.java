@@ -1,4 +1,4 @@
-package fr.delcey.mvvm_clean_archi_java.data;
+package fr.delcey.mvvm_clean_archi_java.data.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import fr.delcey.mvvm_clean_archi_java.data.model.Property;
+import fr.delcey.mvvm_clean_archi_java.data.database.model.Property;
 
 @Dao
 public

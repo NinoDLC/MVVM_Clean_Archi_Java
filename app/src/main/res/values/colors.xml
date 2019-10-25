@@ -3,4 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="temperature_40">#FF0000</color>
+    <color name="temperature_30">#FF5B00</color>
+    <color name="temperature_20">#FFC000</color>
+    <color name="temperature_10">#44FF00</color>
+    <color name="temperature_0">#00FFFF</color>
+    <color name="temperature_minus10">#0075FF</color>
+    <color name="temperature_minus20">#0026FF</color>
+    <color name="default_temperature">#888</color>
 </resources>

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="fr.delcey.mvvm_clean_archi_java"
-    >
+    package="fr.delcey.mvvm_clean_archi_java">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MainApplication"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        >
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,22 +1,24 @@
 package fr.delcey.mvvm_clean_archi_java.view.model;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
 public class PropertyUiModel {
+
     private final int id;
+
     @NonNull
-    private final String type;
-    @Nullable
-    private final String mainAddress;
+    private final String description;
 
+    @ColorRes
+    private final int temperatureColor;
 
-    public PropertyUiModel(int id, @NonNull String type, @Nullable String mainAddress) {
+    public PropertyUiModel(int id, @NonNull String description, @ColorRes int temperatureColor) {
         this.id = id;
-        this.type = type;
-        this.mainAddress = mainAddress;
+        this.description = description;
+        this.temperatureColor = temperatureColor;
     }
 
     public int getId() {
@@ -24,13 +26,23 @@ public class PropertyUiModel {
     }
 
     @NonNull
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    @Nullable
-    public String getMainAddress() {
-        return mainAddress;
+    @ColorRes
+    public int getTemperatureColor() {
+        return temperatureColor;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "PropertyUiModel{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", temperatureColor=" + temperatureColor +
+                '}';
     }
 
     @Override
@@ -39,7 +51,12 @@ public class PropertyUiModel {
         if (o == null || getClass() != o.getClass()) return false;
         PropertyUiModel that = (PropertyUiModel) o;
         return id == that.id &&
-                type.equals(that.type) &&
-                Objects.equals(mainAddress, that.mainAddress);
+                temperatureColor == that.temperatureColor &&
+                description.equals(that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, temperatureColor);
     }
 }

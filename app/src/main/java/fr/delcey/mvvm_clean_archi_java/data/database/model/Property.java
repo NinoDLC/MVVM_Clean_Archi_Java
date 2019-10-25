@@ -1,8 +1,10 @@
-package fr.delcey.mvvm_clean_archi_java.data.model;
+package fr.delcey.mvvm_clean_archi_java.data.database.model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import fr.delcey.mvvm_clean_archi_java.data.database.PropertyType;
 
 @Entity(
         foreignKeys = @ForeignKey(
@@ -17,21 +19,28 @@ public class Property {
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
 
-    private String type;
+    private PropertyType type;
+
+    private int surfaceArea;
 
     private long addressId;
 
-    public Property(String type, long addressId) {
+    public Property(PropertyType type, int surfaceArea, long addressId) {
         this.type = type;
         this.addressId = addressId;
+        this.surfaceArea = surfaceArea;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setType(String type) {
+    public void setType(PropertyType type) {
         this.type = type;
+    }
+
+    public void setSurfaceArea(int surfaceArea) {
+        this.surfaceArea = surfaceArea;
     }
 
     public void setAddressId(long addressId) {
@@ -42,11 +51,25 @@ public class Property {
         return id;
     }
 
-    public String getType() {
+    public PropertyType getType() {
         return type;
+    }
+
+    public int getSurfaceArea() {
+        return surfaceArea;
     }
 
     public long getAddressId() {
         return addressId;
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "id=" + id +
+                ", type=" + type +
+                ", surfaceArea=" + surfaceArea +
+                ", addressId=" + addressId +
+                '}';
     }
 }

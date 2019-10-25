@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 
 import org.hamcrest.beans.HasPropertyWithValue;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.delcey.mvvm_clean_archi_java.LiveDataTestUtil;
-import fr.delcey.mvvm_clean_archi_java.data.AddressDao;
-import fr.delcey.mvvm_clean_archi_java.data.PropertyDao;
-import fr.delcey.mvvm_clean_archi_java.data.model.Address;
-import fr.delcey.mvvm_clean_archi_java.data.model.Property;
+import fr.delcey.mvvm_clean_archi_java.data.database.AddressDao;
+import fr.delcey.mvvm_clean_archi_java.data.database.PropertyDao;
+import fr.delcey.mvvm_clean_archi_java.data.database.model.Address;
+import fr.delcey.mvvm_clean_archi_java.data.database.model.Property;
 import fr.delcey.mvvm_clean_archi_java.view.model.PropertyUiModel;
 
 import static org.hamcrest.Matchers.allOf;

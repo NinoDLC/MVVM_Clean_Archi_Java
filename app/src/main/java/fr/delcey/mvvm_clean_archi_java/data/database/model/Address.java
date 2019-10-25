@@ -1,4 +1,4 @@
-package fr.delcey.mvvm_clean_archi_java.data.model;
+package fr.delcey.mvvm_clean_archi_java.data.database.model;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Entity;
@@ -11,8 +11,11 @@ public class Address {
 
     private String path;
 
-    public Address(String path) {
+    private String city;
+
+    public Address(String path, String city) {
         this.path = path;
+        this.city = city;
     }
 
     public int getId() {
@@ -23,6 +26,10 @@ public class Address {
         return path;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     @VisibleForTesting
     public void setId(int id) {
         this.id = id;
@@ -30,5 +37,18 @@ public class Address {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", path='" + path + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

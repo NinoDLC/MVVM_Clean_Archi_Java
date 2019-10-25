@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MVVM_Clean_Archi_Java</string>
     <string name="insert">Insert</string>
+    <string name="temperature_format">%.2f °C</string>
+    <string name="template_address_type">%s (de %d m²), situé au %s a comme température : %s</string>
+    <string name="flat">L\'appartement</string>
+    <string name="mansion">Le chateau</string>
+    <string name="house">La maison</string>
+    <string name="garage">Le garage</string>
+    <string name="building">L\'immeuble</string>
+    <string name="unknown_temperature">\???</string>
 </resources>

@@ -33,19 +33,19 @@ class MainAdapter extends ListAdapter<PropertyUiModel, MainAdapter.MainViewHolde
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView textViewType;
-        private final TextView textViewAddress;
+        private final TextView textViewDescription;
+        private final View viewTemperature;
 
         MainViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewType = itemView.findViewById(R.id.item_main_tv_type);
-            textViewAddress = itemView.findViewById(R.id.item_main_tv_address);
+            textViewDescription = itemView.findViewById(R.id.item_main_tv_description);
+            viewTemperature = itemView.findViewById(R.id.item_main_v_temperature);
         }
 
         void bind(PropertyUiModel model) {
-            textViewType.setText(model.getType());
-            textViewAddress.setText(model.getMainAddress());
+            textViewDescription.setText(model.getDescription());
+            viewTemperature.setBackgroundResource(model.getTemperatureColor());
         }
     }
 
