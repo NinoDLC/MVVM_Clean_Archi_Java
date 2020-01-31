@@ -39,10 +39,10 @@ public class PropertyUiModel {
     @Override
     public String toString() {
         return "PropertyUiModel{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", temperatureColor=" + temperatureColor +
-                '}';
+            "id=" + id +
+            ", description='" + description + '\'' +
+            ", temperatureColor=" + temperatureColor +
+            '}';
     }
 
     @Override
@@ -51,8 +51,8 @@ public class PropertyUiModel {
         if (o == null || getClass() != o.getClass()) return false;
         PropertyUiModel that = (PropertyUiModel) o;
         return id == that.id &&
-                temperatureColor == that.temperatureColor &&
-                description.equals(that.description);
+            temperatureColor == that.temperatureColor &&
+            description.equals(that.description);
     }
 
     @Override

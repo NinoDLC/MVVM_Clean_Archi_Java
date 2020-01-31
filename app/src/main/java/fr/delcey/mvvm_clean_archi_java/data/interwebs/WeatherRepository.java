@@ -33,10 +33,10 @@ public class WeatherRepository {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 HttpUrl url = request.url()
-                        .newBuilder()
-                        .addQueryParameter(APIKEY_NAME, APIKEY_VALUE)
-                        .addQueryParameter(METRICS_UNITS_NAME, METRICS_UNITS_VALUE)
-                        .build();
+                    .newBuilder()
+                    .addQueryParameter(APIKEY_NAME, APIKEY_VALUE)
+                    .addQueryParameter(METRICS_UNITS_NAME, METRICS_UNITS_VALUE)
+                    .build();
                 request = request.newBuilder().url(url).build();
                 return chain.proceed(request);
             }
@@ -49,17 +49,17 @@ public class WeatherRepository {
 
         // Inject interceptors to client
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(apikeyAndMetricsInterceptor)
-                .addInterceptor(loggingInterceptor)
-                .build();
+            .addInterceptor(apikeyAndMetricsInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            .baseUrl("https://api.openweathermap.org/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
-        service =retrofit.create(WeatherApi.class);
+        service = retrofit.create(WeatherApi.class);
     }
 
     // TODO SOME CACHING SHOULD BE DONE HERE !
@@ -67,7 +67,7 @@ public class WeatherRepository {
     public WeatherValues getWeatherForCity(@NonNull String city) throws IOException {
         WeatherApiResponse response = service.getWeatherForCity(city).execute().body();
 
-        if(response != null) {
+        if (response != null) {
             return response.getWeatherValues();
         } else {
             return null;

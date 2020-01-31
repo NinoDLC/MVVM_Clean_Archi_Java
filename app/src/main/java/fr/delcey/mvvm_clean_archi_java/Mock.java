@@ -63,8 +63,8 @@ public final class Mock {
 
     public static Address getRandomAddress() {
         return new Address(
-                paths.get(random.nextInt(paths.size())),
-                cities.get(random.nextInt(cities.size()))
+            paths.get(random.nextInt(paths.size())),
+            cities.get(random.nextInt(cities.size()))
         );
     }
 

@@ -1,5 +1,6 @@
 package fr.delcey.mvvm_clean_archi_java.data.database.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -43,12 +44,13 @@ public class Address {
         this.city = city;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+            "id=" + id +
+            ", path='" + path + '\'' +
+            ", city='" + city + '\'' +
+            '}';
     }
 }

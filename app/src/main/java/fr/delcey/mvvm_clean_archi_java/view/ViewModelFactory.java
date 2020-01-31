@@ -23,9 +23,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
 
     private ViewModelFactory(
-            @NonNull AddressDao addressDao,
-            @NonNull PropertyDao propertyDao,
-            @NonNull WeatherRepository weatherRepository
+        @NonNull AddressDao addressDao,
+        @NonNull PropertyDao propertyDao,
+        @NonNull WeatherRepository weatherRepository
     ) {
         this.addressDao = addressDao;
         this.propertyDao = propertyDao;
@@ -37,9 +37,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             synchronized (ViewModelFactory.class) {
                 if (sFactory == null) {
                     sFactory = new ViewModelFactory(
-                            AppDatabase.getInstance().addressDao(),
-                            AppDatabase.getInstance().propertyDao(),
-                            new WeatherRepository()
+                        AppDatabase.getInstance().addressDao(),
+                        AppDatabase.getInstance().propertyDao(),
+                        new WeatherRepository()
                     );
                 }
             }
@@ -54,10 +54,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
             return (T) new MainViewModel(
-                    MainApplication.getInstance(),
-                    addressDao,
-                    propertyDao,
-                    weatherRepository
+                MainApplication.getInstance(),
+                addressDao,
+                propertyDao,
+                weatherRepository
             );
         }
         throw new IllegalArgumentException("Unknown ViewModel class");

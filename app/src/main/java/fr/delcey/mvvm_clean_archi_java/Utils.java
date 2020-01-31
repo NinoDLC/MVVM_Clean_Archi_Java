@@ -13,10 +13,10 @@ public class Utils {
         StringBuilder mapAsString = new StringBuilder("{");
         for (Object key : map.keySet()) {
             mapAsString
-                    .append(key)
-                    .append("=")
-                    .append(map.get(key))
-                    .append(", ");
+                .append(key)
+                .append("=")
+                .append(map.get(key))
+                .append(", ");
         }
         mapAsString.delete(mapAsString.length() - 2, mapAsString.length()).append("}");
         return mapAsString.toString();

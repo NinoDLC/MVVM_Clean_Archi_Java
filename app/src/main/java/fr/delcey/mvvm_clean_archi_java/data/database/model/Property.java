@@ -1,5 +1,6 @@
 package fr.delcey.mvvm_clean_archi_java.data.database.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -7,12 +8,12 @@ import androidx.room.PrimaryKey;
 import fr.delcey.mvvm_clean_archi_java.data.database.PropertyType;
 
 @Entity(
-        foreignKeys = @ForeignKey(
-                entity = Address.class,
-                parentColumns = "id",
-                childColumns = "addressId",
-                onDelete = ForeignKey.CASCADE
-        )
+    foreignKeys = @ForeignKey(
+        entity = Address.class,
+        parentColumns = "id",
+        childColumns = "addressId",
+        onDelete = ForeignKey.CASCADE
+    )
 )
 public class Property {
 
@@ -63,13 +64,14 @@ public class Property {
         return addressId;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Property{" +
-                "id=" + id +
-                ", type=" + type +
-                ", surfaceArea=" + surfaceArea +
-                ", addressId=" + addressId +
-                '}';
+            "id=" + id +
+            ", type=" + type +
+            ", surfaceArea=" + surfaceArea +
+            ", addressId=" + addressId +
+            '}';
     }
 }

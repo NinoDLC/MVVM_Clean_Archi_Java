@@ -1,6 +1,6 @@
 package fr.delcey.mvvm_clean_archi_java.view;
 
-import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,7 +20,6 @@ import java.util.List;
 
 import fr.delcey.mvvm_clean_archi_java.Mock;
 import fr.delcey.mvvm_clean_archi_java.R;
-import fr.delcey.mvvm_clean_archi_java.Utils;
 import fr.delcey.mvvm_clean_archi_java.data.database.AddressDao;
 import fr.delcey.mvvm_clean_archi_java.data.database.PropertyDao;
 import fr.delcey.mvvm_clean_archi_java.data.database.model.Address;
@@ -37,7 +36,7 @@ class MainViewModel extends ViewModel {
     private MutableLiveData<HashMap<String, Double>> mCityTemperatureLiveData = new MutableLiveData<>();
 
     @NonNull
-    private final Application mApplication;
+    private final Context mContext;
     @NonNull
     private final AddressDao mAddressDao;
     @NonNull
@@ -46,12 +45,12 @@ class MainViewModel extends ViewModel {
     private final WeatherRepository mWeatherRepository;
 
     public MainViewModel(
-            @NonNull Application application,
-            @NonNull AddressDao addressDao,
-            @NonNull PropertyDao propertyDao,
-            @NonNull WeatherRepository weatherRepository
+        @NonNull Context context,
+        @NonNull AddressDao addressDao,
+        @NonNull PropertyDao propertyDao,
+        @NonNull WeatherRepository weatherRepository
     ) {
-        mApplication = application;
+        mContext = context;
         mAddressDao = addressDao;
         mPropertyDao = propertyDao;
         mWeatherRepository = weatherRepository;
@@ -73,38 +72,38 @@ class MainViewModel extends ViewModel {
         final LiveData<List<Address>> addressesLiveData = mAddressDao.getAddressesLiveData();
 
         mUiModelsLiveData.addSource(propertiesLiveData, properties ->
-                mUiModelsLiveData.setValue(
-                        combinePropertiesAndAddresses(
-                                properties,
-                                addressesLiveData.getValue(),
-                                mCityTemperatureLiveData.getValue()
-                        )
-                ));
+            mUiModelsLiveData.setValue(
+                combinePropertiesAndAddresses(
+                    properties,
+                    addressesLiveData.getValue(),
+                    mCityTemperatureLiveData.getValue()
+                )
+            ));
 
         mUiModelsLiveData.addSource(addressesLiveData, addresses ->
-                mUiModelsLiveData.setValue(
-                        combinePropertiesAndAddresses(
-                                propertiesLiveData.getValue(),
-                                addresses,
-                                mCityTemperatureLiveData.getValue()
-                        )
-                ));
+            mUiModelsLiveData.setValue(
+                combinePropertiesAndAddresses(
+                    propertiesLiveData.getValue(),
+                    addresses,
+                    mCityTemperatureLiveData.getValue()
+                )
+            ));
 
         mUiModelsLiveData.addSource(mCityTemperatureLiveData, cityTemperatureHashMap ->
-                mUiModelsLiveData.setValue(
-                        combinePropertiesAndAddresses(
-                                propertiesLiveData.getValue(),
-                                addressesLiveData.getValue(),
-                                cityTemperatureHashMap
-                        )
-                ));
+            mUiModelsLiveData.setValue(
+                combinePropertiesAndAddresses(
+                    propertiesLiveData.getValue(),
+                    addressesLiveData.getValue(),
+                    cityTemperatureHashMap
+                )
+            ));
     }
 
     @Nullable
     private List<PropertyUiModel> combinePropertiesAndAddresses(
-            @Nullable List<Property> properties,
-            @Nullable List<Address> addresses,
-            @Nullable HashMap<String, Double> cityTemperatureHashMap
+        @Nullable List<Property> properties,
+        @Nullable List<Address> addresses,
+        @Nullable HashMap<String, Double> cityTemperatureHashMap
     ) {
         if (properties == null || addresses == null) {
             return null;
@@ -114,9 +113,9 @@ class MainViewModel extends ViewModel {
     }
 
     private List<PropertyUiModel> map(
-            @NonNull List<Property> properties,
-            @NonNull List<Address> addresses,
-            @Nullable HashMap<String, Double> cityTemperatureHashMap
+        @NonNull List<Property> properties,
+        @NonNull List<Address> addresses,
+        @Nullable HashMap<String, Double> cityTemperatureHashMap
     ) {
         List<PropertyUiModel> result = new ArrayList<>();
 
@@ -124,7 +123,7 @@ class MainViewModel extends ViewModel {
             Address propertyAdress = null;
 
             for (Address address : addresses) {
-                if (address.getId() == property.getId()) {
+                if (address.getId() == property.getAddressId()) {
                     propertyAdress = address;
                     break;
                 }
@@ -146,14 +145,14 @@ class MainViewModel extends ViewModel {
                 }
 
                 PropertyUiModel propertyUiModel = new PropertyUiModel(
-                        property.getId(),
-                        getPropertyName(
-                                mApplication,
-                                propertyAdress,
-                                property,
-                                temperature
-                        ),
-                        getTemperatureColor(temperature)
+                    property.getId(),
+                    getPropertyName(
+                        mContext,
+                        propertyAdress,
+                        property,
+                        temperature
+                    ),
+                    getTemperatureColor(temperature)
                 );
 
                 result.add(propertyUiModel);
@@ -211,27 +210,28 @@ class MainViewModel extends ViewModel {
 
     @NonNull
     private String getPropertyName(
-            @NonNull Application application,
-            @NonNull Address address,
-            @NonNull Property property,
-            @Nullable Double temperature) {
-        String humanReadablePropertyType = application.getResources().getString(property.getType().getHumanReadableStringRes());
+        @NonNull Context context,
+        @NonNull Address address,
+        @NonNull Property property,
+        @Nullable Double temperature
+    ) {
+        String humanReadablePropertyType = context.getString(property.getType().getHumanReadableStringRes());
 
         String humanReadableAddress = address.getPath() + ", " + address.getCity();
 
         String humanReadableTemperature;
         if (temperature != null) {
-            humanReadableTemperature = application.getResources().getString(R.string.temperature_format, temperature);
+            humanReadableTemperature = context.getString(R.string.temperature_format, temperature);
         } else {
-            humanReadableTemperature = application.getResources().getString(R.string.unknown_temperature);
+            humanReadableTemperature = context.getString(R.string.unknown_temperature);
         }
 
-        return application.getResources().getString(
-                R.string.template_address_type,
-                humanReadablePropertyType,
-                property.getSurfaceArea(),
-                humanReadableAddress,
-                humanReadableTemperature
+        return context.getString(
+            R.string.template_address_type,
+            humanReadablePropertyType,
+            property.getSurfaceArea(),
+            humanReadableAddress,
+            humanReadableTemperature
         );
     }
 
@@ -254,10 +254,10 @@ class MainViewModel extends ViewModel {
             long newAddressId = mAddressDao.insertAddress(Mock.getRandomAddress());
 
             mPropertyDao.insertProperty(
-                    new Property(
-                            Mock.getRandomPropertyType(),
-                            Mock.getRandomSurfaceArea(),
-                            newAddressId)
+                new Property(
+                    Mock.getRandomPropertyType(),
+                    Mock.getRandomSurfaceArea(),
+                    newAddressId)
             );
 
             return null;
@@ -277,9 +277,9 @@ class MainViewModel extends ViewModel {
         private final String mCity;
 
         private GetWeatherAsyncTask(
-                @NonNull MainViewModel model,
-                @NonNull WeatherRepository weatherRepository,
-                @NonNull String city
+            @NonNull MainViewModel model,
+            @NonNull WeatherRepository weatherRepository,
+            @NonNull String city
         ) {
             modelWeakReference = new WeakReference<>(model);
             mWeatherRepository = weatherRepository;
